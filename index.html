@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervision OPC UA</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <h1>Supervision</h1>
+    
+    <div class="card">
+        <h2>Variables en temps réel</h2>
+        <div id="variables" 
+             hx-get="/api/variables" 
+             hx-trigger="load, every 1s"
+             hx-swap="innerHTML">
+            Chargement...
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Écrire une valeur</h2>
+        <form hx-post="/api/write/counter" 
+              hx-swap="none"
+              hx-on::after-request="alert('Valeur modifiée !')">
+            <label>Counter:</label>
+            <input name="value" type="number" step="0.1" required />
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+</body>
+</html>
